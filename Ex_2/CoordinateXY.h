@@ -23,6 +23,7 @@ public:
 	int getpointnum() {
 		return point_num;
 	}
+
 private:
 	int CoordinateX;
 	int CoordinateY;

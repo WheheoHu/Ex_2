@@ -1,18 +1,23 @@
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include<string>
 #include "glut.h"
 #include "CoordinateXY.h"
 
 using namespace std;
-//#pragma comment(lib,"opengl32.lib")
-//#pragma comment(lib,"glu32.lib")
-#pragma comment(lib,"glut32.lib")
+
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
 bool creak = false;
 static CoordinateXY   coorxy;
+vector<vector<int>> datapoint;
+fstream datafile;
+
+void savedata(vector<vector<int>> datapoint);
 
 //test code
 void setXY(int x, int y) {
@@ -85,7 +90,7 @@ void RenderScene() {
 		glVertex2i(coorxy.getCoorX(), coorxy.getCoorY());
 		glEnd();
 	}
-	cout << coorxy.getpointnum() << endl;
+	cout << coorxy.getpointnum() <<" ["<<coorxy.getCoorX()<<","<<coorxy.getCoorY()<<"]" <<endl;
 	glFlush();
 }
 
@@ -106,12 +111,36 @@ int main() {
 	//´´½¨´°¿Ú
 	InitWindow();
 
-
-	//setXY(100, 200);
 	glutDisplayFunc(RenderScene);
 
 	glutMouseFunc(mouseProcess);
 
 	glutMainLoop();
+	/*datafile.open("Data.txt", ios::out);
+	datafile << "adsasdasd" << endl;
+	datafile << "ads" << endl;
+	datafile.close();
+
+	datafile.open("Data.txt", ios::in);
+	string line_s;
+	while (!datafile.eof())
+	{
+		cout <<  line_s<< endl;
+	}
+	datafile.close();
+	system("pause");*/
 	return 0;
+}
+
+void savedata(vector<vector<int>> datapoint)
+{
+	datafile.open("Data.txt",ios::out);
+	for (int i = 0; i < datapoint.size(); i++)
+	{
+		for (int j = 0; j < datapoint[0].size(); j++)
+		{
+			datafile << datapoint[i][j] << endl;
+		}
+	}
+	datafile.close();
 }
