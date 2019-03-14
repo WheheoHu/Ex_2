@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include<string>
+#include <string>
 #include "glut.h"
 #include "CoordinateXY.h"
 
@@ -13,17 +13,21 @@ using namespace std;
 #define WINDOW_HEIGHT 480
 
 bool creak = false;
+bool saved = false;
 static CoordinateXY   coorxy;
 vector<vector<int>> datapoint;
 fstream datafile;
 
 void savedata(vector<vector<int>> datapoint);
 
-//test code
+
 void setXY(int x, int y) {
 	coorxy.setX(x);
 	coorxy.setY(y);
 	coorxy.plusnum();
+	datafile.open("Data.txt", ios::out|ios::app);
+	datafile << x << " "<<y << endl;
+	datafile.close();
 }
 
 //右键菜单更改颜色
@@ -67,12 +71,14 @@ void InitMenu() {
 
 //初始化窗口
 void InitWindow() {
+	datafile.open("Data.txt", ios::out);
+	datafile.close();
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("simple");
 	InitMenu();
 	glMatrixMode(GL_PROJECTION);// sets the current matrix to projection
 	glLoadIdentity();//multiply the current matrix by identity matrix
-	gluOrtho2D(0.0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);//sets the parallel(orthographic) projection of the full frame buffer 
+	gluOrtho2D(0.0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);//sets the parallel(orthographic) projection of the full frame buffer 
 
 }
 
@@ -81,7 +87,7 @@ void RenderScene() {
 
 
 	//glColor3f(1, 1, 0);
-	glPointSize(10);
+	glPointSize(5);
 	if (creak)
 	{
 
@@ -101,7 +107,7 @@ void mouseProcess(int button, int state, int x, int y) {
 		creak = true;
 
 
-		setXY(x, y);
+		setXY(x,WINDOW_HEIGHT- y);
 	}
 
 	glutPostRedisplay();
@@ -116,6 +122,7 @@ int main() {
 	glutMouseFunc(mouseProcess);
 
 	glutMainLoop();
+	
 	/*datafile.open("Data.txt", ios::out);
 	datafile << "adsasdasd" << endl;
 	datafile << "ads" << endl;
