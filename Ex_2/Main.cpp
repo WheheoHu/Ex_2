@@ -11,9 +11,14 @@ using namespace std;
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
+#define WHITE 0
+#define RED 1
+#define GREEN 2
+#define	BLUE 3
 
 bool creak = false;
 bool saved = false;
+static int iColor = WHITE;
 static CoordinateXY   coorxy;
 vector<vector<int>> datapoint;
 fstream datafile;
@@ -26,7 +31,7 @@ void setXY(int x, int y) {
 	coorxy.setY(y);
 	coorxy.plusnum();
 	datafile.open("Data.txt", ios::out|ios::app);
-	datafile << x << " "<<y << endl;
+	datafile << x << " " << y << " " << iColor << endl;
 	datafile.close();
 }
 
@@ -36,18 +41,22 @@ void processmenu(int MenuID) {
 	switch (MenuID)
 	{
 	case 0: {
+		iColor = WHITE;
 		glColor3f(1, 1, 1);
 		break;
 	}
 	case 1: {
+		iColor = RED;
 		glColor3f(1, 0, 0);
 		break;
 	}
 	case 2: {
+		iColor = GREEN;
 		glColor3f(0, 1, 0);
 		break;
 	}
 	case 3: {
+		iColor = BLUE;
 		glColor3f(0, 0, 1);
 		break;
 	}
