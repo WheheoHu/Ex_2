@@ -18,12 +18,13 @@ using namespace std;
 
 bool creak = false;
 bool saved = false;
+static int inc = 0;
 static int iColor = WHITE;
 static CoordinateXY   coorxy;
 vector<vector<int>> datapoint;
 fstream datafile;
 
-void savedata(vector<vector<int>> datapoint);
+void savedata(vector<vector<int> > datapoint);
 
 
 void setXY(int x, int y) {
@@ -31,7 +32,9 @@ void setXY(int x, int y) {
 	coorxy.setY(y);
 	coorxy.plusnum();
 	datafile.open("Data.txt", ios::out | ios::app);
-	datafile << x << " " << y << " " << iColor << endl;
+	//datapoint.pop_back();
+
+	//datafile << x << " " << y << " " << iColor << endl;
 	datafile.close();
 }
 
@@ -61,7 +64,7 @@ void processmenu(int MenuID) {
 		break;
 	}
 	case 4: {
-
+		savedata(datapoint);
 		break;
 	}
 	case 5: {
@@ -166,7 +169,11 @@ void savedata(vector<vector<int>> datapoint)
 	{
 		for (int j = 0; j < datapoint[0].size(); j++)
 		{
-			datafile << datapoint[i][j] << endl;
+			datafile << datapoint[i][j] << " ";
+			if (j==2)
+			{
+				datafile << endl;
+			}
 		}
 	}
 	datafile.close();
