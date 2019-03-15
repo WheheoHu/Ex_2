@@ -30,7 +30,7 @@ void setXY(int x, int y) {
 	coorxy.setX(x);
 	coorxy.setY(y);
 	coorxy.plusnum();
-	datafile.open("Data.txt", ios::out|ios::app);
+	datafile.open("Data.txt", ios::out | ios::app);
 	datafile << x << " " << y << " " << iColor << endl;
 	datafile.close();
 }
@@ -68,7 +68,7 @@ void processmenu(int MenuID) {
 
 		break;
 	}
-	
+
 	case 6: {
 		exit(0);
 		break; }
@@ -116,7 +116,7 @@ void RenderScene() {
 		glVertex2i(coorxy.getCoorX(), coorxy.getCoorY());
 		glEnd();
 	}
-	cout << coorxy.getpointnum() <<" ["<<coorxy.getCoorX()<<","<<coorxy.getCoorY()<<"]" <<endl;
+	cout << coorxy.getpointnum() << " [" << coorxy.getCoorX() << "," << coorxy.getCoorY() << "]" << endl;
 	glFlush();
 }
 
@@ -127,7 +127,7 @@ void mouseProcess(int button, int state, int x, int y) {
 		creak = true;
 
 
-		setXY(x,WINDOW_HEIGHT- y);
+		setXY(x, WINDOW_HEIGHT - y);
 	}
 
 	glutPostRedisplay();
@@ -142,7 +142,7 @@ int main() {
 	glutMouseFunc(mouseProcess);
 
 	glutMainLoop();
-	
+
 	/*datafile.open("Data.txt", ios::out);
 	datafile << "adsasdasd" << endl;
 	datafile << "ads" << endl;
@@ -161,7 +161,7 @@ int main() {
 
 void savedata(vector<vector<int>> datapoint)
 {
-	datafile.open("Data.txt",ios::out);
+	datafile.open("Data.txt", ios::out);
 	for (int i = 0; i < datapoint.size(); i++)
 	{
 		for (int j = 0; j < datapoint[0].size(); j++)
