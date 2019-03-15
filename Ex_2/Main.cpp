@@ -61,6 +61,15 @@ void processmenu(int MenuID) {
 		break;
 	}
 	case 4: {
+
+		break;
+	}
+	case 5: {
+
+		break;
+	}
+	
+	case 6: {
 		exit(0);
 		break; }
 	}
@@ -75,7 +84,9 @@ void InitMenu() {
 	glutAddMenuEntry("Red", 1);
 	glutAddMenuEntry("Green", 2);
 	glutAddMenuEntry("Blue", 3);
-	glutAddMenuEntry("EXIT", 4);
+	glutAddMenuEntry("SAVE", 4);
+	glutAddMenuEntry("LOAD", 5);
+	glutAddMenuEntry("EXIT", 6);
 }
 
 //³õÊ¼»¯´°¿Ú
