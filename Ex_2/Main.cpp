@@ -147,19 +147,7 @@ int main() {
 
 	glutMainLoop();
 
-	/*datafile.open("Data.txt", ios::out);
-	datafile << "adsasdasd" << endl;
-	datafile << "ads" << endl;
-	datafile.close();
-
-	datafile.open("Data.txt", ios::in);
-	string line_s;
-	while (!datafile.eof())
-	{
-		cout <<  line_s<< endl;
-	}
-	datafile.close();
-	system("pause");*/
+	
 	return 0;
 }
 
