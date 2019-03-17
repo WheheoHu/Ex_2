@@ -21,20 +21,19 @@ bool saved = false;
 static int inc = 0;
 static int iColor = WHITE;
 static CoordinateXY   coorxy;
-vector<vector<int>> datapoint;
+vector< CoordinateXY> datapoint;
 fstream datafile;
 
-void savedata(vector<vector<int> > datapoint);
-
+void savedata(vector<CoordinateXY> datapoint);
+void loaddata(fstream &datafile);
 
 void setXY(int x, int y) {
 	coorxy.setX(x);
 	coorxy.setY(y);
+	coorxy.setColor(iColor);
 	coorxy.plusnum();
-	datafile.open("Data.txt", ios::out | ios::app);
-
-	datafile << x << " " << y << " " << iColor << endl;
-	datafile.close();
+	datapoint.push_back(CoordinateXY(x, y,iColor));
+	//datafile << x << " " << y << " " << iColor << endl;
 }
 
 //右键菜单更改颜色
@@ -63,7 +62,7 @@ void processmenu(int MenuID) {
 		break;
 	}
 	case 4: {
-	//	savedata(datapoint);
+		savedata(datapoint);
 		break;
 	}
 	case 5: {
@@ -161,16 +160,19 @@ int main() {
 	return 0;
 }
 
-void savedata(vector<vector<int>> datapoint)
+void savedata(vector<CoordinateXY> datapoint)
 {
-	datafile.open("Data.txt", ios::out);
-	for (int i = 0; i < datapoint.size(); i++)
+	datafile.open("Data.txt", ios::out | ios::app);
+	for (vector<CoordinateXY>::iterator iter = datapoint.begin(); iter != datapoint.end(); iter++)
 	{
-		for (int j = 0; j < datapoint[0].size(); j++)
-		{
-			datafile << datapoint[i][j] << " ";
-		}
-		datafile << endl;
+		datafile << iter->getCoorX() << " " << iter->getCoorY() << " " << iter->getColor() << endl;
 	}
+	datafile.close();
+}
+
+void loaddata(fstream & datafile)
+{
+	datafile.open("Data.txt",ios::in);
+
 	datafile.close();
 }

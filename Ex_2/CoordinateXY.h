@@ -3,11 +3,13 @@ class CoordinateXY
 {
 public:
 	CoordinateXY(int coorX,int coorY);
+	CoordinateXY(int coorX, int coorY,int Color);
 	CoordinateXY();
 	~CoordinateXY();
 	void setX(int x);
 	void setY(int y);
 	void plusnum();
+	void setColor(int iColor); 
 
 	//»ñµÃx×ø±ê
 	int getCoorX() {
@@ -24,9 +26,13 @@ public:
 		return point_num;
 	}
 
+	int getColor();
+	
+
 private:
 	int CoordinateX;
 	int CoordinateY;
 	int point_num;
+	int point_color;
 };
 
