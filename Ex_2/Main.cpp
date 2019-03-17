@@ -66,7 +66,7 @@ void processmenu(int MenuID) {
 		break;
 	}
 	case 5: {
-
+		loaddata(datafile);
 		break;
 	}
 
@@ -92,8 +92,7 @@ void InitMenu() {
 
 //³õÊ¼»¯´°¿Ú
 void InitWindow() {
-	datafile.open("Data.txt", ios::out);
-	datafile.close();
+
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("simple");
 	InitMenu();
@@ -162,7 +161,8 @@ int main() {
 
 void savedata(vector<CoordinateXY> datapoint)
 {
-	datafile.open("Data.txt", ios::out | ios::app);
+	remove("Data.txt");
+	datafile.open("Data.txt", ios::out );
 	for (vector<CoordinateXY>::iterator iter = datapoint.begin(); iter != datapoint.end(); iter++)
 	{
 		datafile << iter->getCoorX() << " " << iter->getCoorY() << " " << iter->getColor() << endl;
@@ -173,6 +173,20 @@ void savedata(vector<CoordinateXY> datapoint)
 void loaddata(fstream & datafile)
 {
 	datafile.open("Data.txt",ios::in);
+	int coorx;
+	int coory;
+	int pointcolor;
 
+	while (!datafile.eof())
+	{
+		datafile >> coorx;
+		datafile >> coory;
+		datafile >> pointcolor;
+		iColor = pointcolor;
+		glBegin(GL_POINTS);
+		glVertex2i(coorx, coory);
+		glEnd();
+		glutPostRedisplay();
+	}
 	datafile.close();
 }
