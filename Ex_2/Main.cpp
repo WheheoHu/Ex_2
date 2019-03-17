@@ -26,6 +26,7 @@ fstream datafile;
 
 void savedata(vector<CoordinateXY> datapoint);
 void loaddata(fstream &datafile);
+void removeall(fstream &datafile);
 
 void setXY(int x, int y) {
 	coorxy.setX(x);
@@ -69,8 +70,12 @@ void processmenu(int MenuID) {
 		loaddata(datafile);
 		break;
 	}
-
 	case 6: {
+		
+		removeall(datafile);
+		break;
+	}
+	case 7: {
 		exit(0);
 		break; }
 	}
@@ -87,7 +92,8 @@ void InitMenu() {
 	glutAddMenuEntry("Blue", 3);
 	glutAddMenuEntry("SAVE", 4);
 	glutAddMenuEntry("LOAD", 5);
-	glutAddMenuEntry("EXIT", 6);
+	glutAddMenuEntry("CLEAN ALL!", 6);
+	glutAddMenuEntry("EXIT", 7);
 }
 
 //初始化窗口
@@ -110,8 +116,6 @@ void RenderScene() {
 	glPointSize(5);
 	if (creak)
 	{
-
-
 		glBegin(GL_POINTS);
 		glVertex2i(coorxy.getCoorX(), coorxy.getCoorY());
 		glEnd();
@@ -137,9 +141,9 @@ int main() {
 	//创建窗口
 	InitWindow();
 
+	glutMouseFunc(mouseProcess);
 	glutDisplayFunc(RenderScene);
 
-	glutMouseFunc(mouseProcess);
 
 	glutMainLoop();
 
@@ -161,8 +165,8 @@ int main() {
 
 void savedata(vector<CoordinateXY> datapoint)
 {
-	remove("Data.txt");
-	datafile.open("Data.txt", ios::out );
+	//remove("Data.txt");
+	datafile.open("Data.txt", ios::out |ios::app);
 	for (vector<CoordinateXY>::iterator iter = datapoint.begin(); iter != datapoint.end(); iter++)
 	{
 		datafile << iter->getCoorX() << " " << iter->getCoorY() << " " << iter->getColor() << endl;
@@ -176,13 +180,32 @@ void loaddata(fstream & datafile)
 	int coorx;
 	int coory;
 	int pointcolor;
-
+	
 	while (!datafile.eof())
 	{
 		datafile >> coorx;
 		datafile >> coory;
 		datafile >> pointcolor;
 		iColor = pointcolor;
+		switch (iColor)
+		{
+		case RED: {
+			glColor3f(1, 0, 0);
+			break;
+		}
+		case GREEN: {
+			glColor3f(0, 1, 0);
+			break;
+		}
+		case BLUE: {
+			glColor3f(0, 0, 1);
+			break;
+		}
+		case WHITE: {
+			glColor3f(1, 1, 1);
+			break;
+		}
+		}
 		glBegin(GL_POINTS);
 		glVertex2i(coorx, coory);
 		glEnd();
@@ -190,3 +213,13 @@ void loaddata(fstream & datafile)
 	}
 	datafile.close();
 }
+
+void removeall(fstream & datafile)
+{
+	datafile.open("Data.txt", ios::out);
+	datafile.close();
+	loaddata(datafile);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+
