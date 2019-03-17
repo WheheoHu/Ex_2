@@ -32,9 +32,8 @@ void setXY(int x, int y) {
 	coorxy.setY(y);
 	coorxy.plusnum();
 	datafile.open("Data.txt", ios::out | ios::app);
-	//datapoint.pop_back();
 
-	//datafile << x << " " << y << " " << iColor << endl;
+	datafile << x << " " << y << " " << iColor << endl;
 	datafile.close();
 }
 
@@ -64,7 +63,7 @@ void processmenu(int MenuID) {
 		break;
 	}
 	case 4: {
-		savedata(datapoint);
+	//	savedata(datapoint);
 		break;
 	}
 	case 5: {
@@ -170,11 +169,8 @@ void savedata(vector<vector<int>> datapoint)
 		for (int j = 0; j < datapoint[0].size(); j++)
 		{
 			datafile << datapoint[i][j] << " ";
-			if (j==2)
-			{
-				datafile << endl;
-			}
 		}
+		datafile << endl;
 	}
 	datafile.close();
 }
