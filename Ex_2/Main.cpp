@@ -24,25 +24,21 @@ static CoordinateXY   coorxy;
 vector< CoordinateXY> datapoint;
 fstream datafile;
 
+//保存xy数据
 void setXY(int x, int y);
-
 void processmenu(int MenuID);
-
+//保存数据
 void savedata(vector<CoordinateXY> datapoint);
+//读取Data.txt数据
 void loaddata(fstream &datafile);
+//清屏&重置数据
 void removeall(fstream &datafile);
-
-
-
 //初始化菜单
 void InitMenu();
-
 //初始化窗口
 void InitWindow();
-
 //渲染
 void RenderScene();
-
 //鼠标操作，将坐标传递给cooxy
 void mouseProcess(int button, int state, int x, int y);
 
