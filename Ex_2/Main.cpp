@@ -24,118 +24,27 @@ static CoordinateXY   coorxy;
 vector< CoordinateXY> datapoint;
 fstream datafile;
 
+void setXY(int x, int y);
+
+void processmenu(int MenuID);
+
 void savedata(vector<CoordinateXY> datapoint);
 void loaddata(fstream &datafile);
 void removeall(fstream &datafile);
 
-void setXY(int x, int y) {
-	coorxy.setX(x);
-	coorxy.setY(y);
-	coorxy.setColor(iColor);
-	coorxy.plusnum();
-	datapoint.push_back(CoordinateXY(x, y,iColor));
-	//datafile << x << " " << y << " " << iColor << endl;
-}
 
-//右键菜单更改颜色
-void processmenu(int MenuID) {
-
-	switch (MenuID)
-	{
-	case 0: {
-		iColor = WHITE;
-		glColor3f(1, 1, 1);
-		break;
-	}
-	case 1: {
-		iColor = RED;
-		glColor3f(1, 0, 0);
-		break;
-	}
-	case 2: {
-		iColor = GREEN;
-		glColor3f(0, 1, 0);
-		break;
-	}
-	case 3: {
-		iColor = BLUE;
-		glColor3f(0, 0, 1);
-		break;
-	}
-	case 4: {
-		savedata(datapoint);
-		break;
-	}
-	case 5: {
-		loaddata(datafile);
-		break;
-	}
-	case 6: {
-		
-		removeall(datafile);
-		break;
-	}
-	case 7: {
-		exit(0);
-		break; }
-	}
-}
 
 //初始化菜单
-void InitMenu() {
-	int m_menuID = glutCreateMenu(processmenu);
-	glutSetMenu(m_menuID);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-	glutAddMenuEntry("White", 0);
-	glutAddMenuEntry("Red", 1);
-	glutAddMenuEntry("Green", 2);
-	glutAddMenuEntry("Blue", 3);
-	glutAddMenuEntry("SAVE", 4);
-	glutAddMenuEntry("LOAD", 5);
-	glutAddMenuEntry("CLEAN ALL!", 6);
-	glutAddMenuEntry("EXIT", 7);
-}
+void InitMenu();
 
 //初始化窗口
-void InitWindow() {
-
-	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	glutCreateWindow("simple");
-	InitMenu();
-	glMatrixMode(GL_PROJECTION);// sets the current matrix to projection
-	glLoadIdentity();//multiply the current matrix by identity matrix
-	gluOrtho2D(0.0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);//sets the parallel(orthographic) projection of the full frame buffer 
-
-}
+void InitWindow();
 
 //渲染
-void RenderScene() {
-
-
-	//glColor3f(1, 1, 0);
-	glPointSize(5);
-	if (creak)
-	{
-		glBegin(GL_POINTS);
-		glVertex2i(coorxy.getCoorX(), coorxy.getCoorY());
-		glEnd();
-	}
-	cout << coorxy.getpointnum() << " [" << coorxy.getCoorX() << "," << coorxy.getCoorY() << "]" << endl;
-	glFlush();
-}
+void RenderScene();
 
 //鼠标操作，将坐标传递给cooxy
-void mouseProcess(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-	{
-		creak = true;
-
-
-		setXY(x, WINDOW_HEIGHT - y);
-	}
-
-	glutPostRedisplay();
-}
+void mouseProcess(int button, int state, int x, int y);
 
 int main() {
 	//创建窗口
@@ -210,4 +119,112 @@ void removeall(fstream & datafile)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void InitMenu()
+{
+	int m_menuID = glutCreateMenu(processmenu);
+	glutSetMenu(m_menuID);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+	glutAddMenuEntry("White", 0);
+	glutAddMenuEntry("Red", 1);
+	glutAddMenuEntry("Green", 2);
+	glutAddMenuEntry("Blue", 3);
+	glutAddMenuEntry("SAVE", 4);
+	glutAddMenuEntry("LOAD", 5);
+	glutAddMenuEntry("CLEAN ALL!", 6);
+	glutAddMenuEntry("EXIT", 7);
+}
+
+void InitWindow()
+{
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutCreateWindow("simple");
+	InitMenu();
+	glMatrixMode(GL_PROJECTION);// sets the current matrix to projection
+	glLoadIdentity();//multiply the current matrix by identity matrix
+	gluOrtho2D(0.0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);//sets the parallel(orthographic) projection of the full frame buffer 
+
+}
+
+void RenderScene()
+{
+	
+		glPointSize(5);
+		if (creak)
+		{
+			glBegin(GL_POINTS);
+			glVertex2i(coorxy.getCoorX(), coorxy.getCoorY());
+			glEnd();
+		}
+		cout << coorxy.getpointnum() << " [" << coorxy.getCoorX() << "," << coorxy.getCoorY() << "]" << endl;
+		glFlush();
+	
+}
+
+void mouseProcess(int button, int state, int x, int y)
+{
+	
+		if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+		{
+			creak = true;
+
+
+			setXY(x, WINDOW_HEIGHT - y);
+		}
+
+		glutPostRedisplay();
+	
+}
+
+void setXY(int x, int y) {
+	coorxy.setX(x);
+	coorxy.setY(y);
+	coorxy.setColor(iColor);
+	coorxy.plusnum();
+	datapoint.push_back(CoordinateXY(x, y, iColor));
+	//datafile << x << " " << y << " " << iColor << endl;
+}
+
+//右键菜单更改颜色
+void processmenu(int MenuID) {
+
+	switch (MenuID)
+	{
+	case 0: {
+		iColor = WHITE;
+		glColor3f(1, 1, 1);
+		break;
+	}
+	case 1: {
+		iColor = RED;
+		glColor3f(1, 0, 0);
+		break;
+	}
+	case 2: {
+		iColor = GREEN;
+		glColor3f(0, 1, 0);
+		break;
+	}
+	case 3: {
+		iColor = BLUE;
+		glColor3f(0, 0, 1);
+		break;
+	}
+	case 4: {
+		savedata(datapoint);
+		break;
+	}
+	case 5: {
+		loaddata(datafile);
+		break;
+	}
+	case 6: {
+
+		removeall(datafile);
+		break;
+	}
+	case 7: {
+		exit(0);
+		break; }
+	}
+}
 
