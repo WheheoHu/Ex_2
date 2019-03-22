@@ -29,5 +29,8 @@
     <ClInclude Include="glut.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MyFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

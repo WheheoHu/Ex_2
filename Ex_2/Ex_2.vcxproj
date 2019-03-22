@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="CoordinateXY.h" />
     <ClInclude Include="glut.h" />
+    <ClInclude Include="MyFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
