@@ -1,20 +1,9 @@
-
 #include "MyFunc.h"
-
 
 int main() {
 	//´´½¨´°¿Ú
 	InitWindow();
-
-	glutMouseFunc(mouseProcess);
-	glutDisplayFunc(RenderScene);
-
-
-	glutMainLoop();
-
-	
+	MainGraphFunc();
 	return 0;
 }
-
-
 

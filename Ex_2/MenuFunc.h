@@ -29,7 +29,17 @@ void savedata(vector<CoordinateXY> datapoint);
 void loaddata(fstream &datafile);
 //清屏&重置数据
 void removeall(fstream &datafile);
+//保存xy数据
+void setXY(int x, int y);
 
+
+void setXY(int x, int y) {
+	coorxy.setX(x);
+	coorxy.setY(y);
+	coorxy.setColor(iColor);
+	coorxy.plusnum();
+	datapoint.push_back(CoordinateXY(x, y, iColor));
+}
 
 void InitMenu()
 {

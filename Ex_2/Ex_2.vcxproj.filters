@@ -35,5 +35,8 @@
     <ClInclude Include="MenuFunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MouseFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

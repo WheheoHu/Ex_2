@@ -8,6 +8,7 @@
 #include "glut.h"
 #include "CoordinateXY.h"
 #include  "MenuFunc.h"
+#include "MouseFunc.h"
 
 using namespace std;
 
@@ -18,24 +19,18 @@ using namespace std;
 #define GREEN 2
 #define	BLUE 3
 
-bool creak = false;
 
-static int inc = 0;
-static int iColor = WHITE;
-static CoordinateXY   coorxy;
-vector< CoordinateXY> datapoint;
-fstream datafile;
-
-//保存xy数据
-void setXY(int x, int y);
 
 
 //初始化窗口
 void InitWindow();
+//鼠标以及显示，在main函数中调用
+void MainGraphFunc();
+
+
+
 //渲染
 void RenderScene();
-//鼠标操作，将坐标传递给cooxy
-void mouseProcess(int button, int state, int x, int y);
 
 
 
@@ -50,6 +45,15 @@ void InitWindow()
 	glLoadIdentity();//multiply the current matrix by identity matrix
 	gluOrtho2D(0.0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);//sets the parallel(orthographic) projection of the full frame buffer 
 
+}
+
+inline void MainGraphFunc()
+{
+	glutMouseFunc(mouseProcess);
+	glutDisplayFunc(RenderScene);
+
+
+	glutMainLoop();
 }
 
 void RenderScene()
@@ -67,22 +71,4 @@ void RenderScene()
 
 }
 
-void mouseProcess(int button, int state, int x, int y)
-{
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-	{
-		creak = true;
-		setXY(x, WINDOW_HEIGHT - y);
-	}
-	glutPostRedisplay();
-
-}
-
-void setXY(int x, int y) {
-	coorxy.setX(x);
-	coorxy.setY(y);
-	coorxy.setColor(iColor);
-	coorxy.plusnum();
-	datapoint.push_back(CoordinateXY(x, y, iColor));
-}
 
