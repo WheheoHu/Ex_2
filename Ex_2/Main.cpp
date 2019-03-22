@@ -144,7 +144,7 @@ void InitWindow()
 void RenderScene()
 {
 	
-		glPointSize(5);
+	glPointSize(5);
 		if (creak)
 		{
 			glBegin(GL_POINTS);
@@ -158,15 +158,11 @@ void RenderScene()
 
 void mouseProcess(int button, int state, int x, int y)
 {
-	
 		if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 		{
 			creak = true;
-
-
 			setXY(x, WINDOW_HEIGHT - y);
 		}
-
 		glutPostRedisplay();
 	
 }
